@@ -11,16 +11,17 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 
 @SpringBootApplication
-@EnableBinding(Sink.class)
+@EnableBinding(InputStream.class)
 public class SpringCloudStreamGh1858Application {
 
   public static void main(String[] args) {
     SpringApplication.run(SpringCloudStreamGh1858Application.class, args);
   }
 
-  @StreamListener(Sink.INPUT)
+  //  @StreamListener(Sink.INPUT)
   public void process(Message<?> message) {
-	  AbstractMessageChannelBinder xx;
+    Object payload = message.getPayload();
+    System.out.println(payload);
     Acknowledgment acknowledgment =
         message.getHeaders().get(KafkaHeaders.ACKNOWLEDGMENT, Acknowledgment.class);
     if (acknowledgment != null) {
